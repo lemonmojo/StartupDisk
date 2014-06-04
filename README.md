@@ -3,7 +3,7 @@
 Summary
 -------
 
-StartupDisk is a little menu bar application for OS X that let's you quickly change the current startup disk.
+StartupDisk is a little menu bar application for OS X that let's you quickly change the current startup disk.<br />
 It is written mainly in Swift.
 
 License
