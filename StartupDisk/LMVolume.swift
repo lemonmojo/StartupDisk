@@ -10,11 +10,11 @@ import Foundation
 
 class LMVolume
 {
-    var path: String = ""
-    var devicePath: String = ""
-    var name: String = ""
-    var bootable: Bool = false
-    var bootableOSX: Bool = false
+    var path = ""
+    var devicePath = ""
+    var name = ""
+    var bootable = false
+    var bootableOSX = false
     
     init() { }
     
@@ -47,9 +47,9 @@ class LMVolume
         return vol;
     }
     
-    class func mountedLocalVolumes() -> Array<LMVolume>
+    class func mountedLocalVolumes() -> LMVolume[]
     {
-        var vols = Array<LMVolume>()
+        var vols = LMVolume[]()
         var volPaths = LMVolume.mountedLocalVolumePaths()
         
         for path in volPaths {
@@ -61,9 +61,9 @@ class LMVolume
         return vols
     }
     
-    class func mountedLocalVolumesWithBootableOSXInstallations() -> Array<LMVolume>
+    class func mountedLocalVolumesWithBootableOSXInstallations() -> LMVolume[]
     {
-        var vols = Array<LMVolume>()
+        var vols = LMVolume[]()
         var volPaths = LMVolume.mountedLocalVolumePaths()
         
         for path in volPaths {
@@ -77,10 +77,10 @@ class LMVolume
         return vols
     }
     
-    class func mountedLocalVolumePaths() -> Array<String>
+    class func mountedLocalVolumePaths() -> String[]
     {
         var volUrls = NSFileManager.defaultManager().mountedVolumeURLsIncludingResourceValuesForKeys(nil, options: NSVolumeEnumerationOptions.fromRaw(0)!)
-        var volPaths = Array<String>()
+        var volPaths = String[]()
         
         for url : AnyObject in volUrls {
             if (url is NSURL) {
