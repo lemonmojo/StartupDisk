@@ -47,9 +47,9 @@ class LMVolume
         return vol;
     }
     
-    class func mountedLocalVolumes() -> LMVolume[]
+    class func mountedLocalVolumes() -> [LMVolume]
     {
-        var vols = LMVolume[]()
+        var vols = [LMVolume]()
         var volPaths = LMVolume.mountedLocalVolumePaths()
         
         for path in volPaths {
@@ -61,9 +61,9 @@ class LMVolume
         return vols
     }
     
-    class func mountedLocalVolumesWithBootableOSXInstallations() -> LMVolume[]
+    class func mountedLocalVolumesWithBootableOSXInstallations() -> [LMVolume]
     {
-        var vols = LMVolume[]()
+        var vols = [LMVolume]()
         var volPaths = LMVolume.mountedLocalVolumePaths()
         
         for path in volPaths {
@@ -77,10 +77,10 @@ class LMVolume
         return vols
     }
     
-    class func mountedLocalVolumePaths() -> String[]
+    class func mountedLocalVolumePaths() -> [String]
     {
         var volUrls = NSFileManager.defaultManager().mountedVolumeURLsIncludingResourceValuesForKeys(nil, options: NSVolumeEnumerationOptions.fromRaw(0)!)
-        var volPaths = String[]()
+        var volPaths = [String]()
         
         for url : AnyObject in volUrls {
             if (url is NSURL) {
