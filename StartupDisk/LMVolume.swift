@@ -27,7 +27,7 @@ class LMVolume
         
         var volInfoDict = LMVolume.getVolumeInfoForPath(path)
         
-        if (volInfoDict) {
+        if (volInfoDict != nil) {
             name = volInfoDict!.objectForKey("VolumeName") as String
             devicePath = volInfoDict!.objectForKey("DeviceNode") as String
             bootable = volInfoDict!.objectForKey("Bootable") as Bool
@@ -47,9 +47,9 @@ class LMVolume
         return vol;
     }
     
-    class func mountedLocalVolumes() -> LMVolume[]
+    class func mountedLocalVolumes() -> [LMVolume]
     {
-        var vols = LMVolume[]()
+        var vols = [LMVolume]()
         var volPaths = LMVolume.mountedLocalVolumePaths()
         
         for path in volPaths {
@@ -61,9 +61,9 @@ class LMVolume
         return vols
     }
     
-    class func mountedLocalVolumesWithBootableOSXInstallations() -> LMVolume[]
+    class func mountedLocalVolumesWithBootableOSXInstallations() -> [LMVolume]
     {
-        var vols = LMVolume[]()
+        var vols = [LMVolume]()
         var volPaths = LMVolume.mountedLocalVolumePaths()
         
         for path in volPaths {
@@ -77,10 +77,10 @@ class LMVolume
         return vols
     }
     
-    class func mountedLocalVolumePaths() -> String[]
+    class func mountedLocalVolumePaths() -> [String]
     {
         var volUrls = NSFileManager.defaultManager().mountedVolumeURLsIncludingResourceValuesForKeys(nil, options: NSVolumeEnumerationOptions.fromRaw(0)!)
-        var volPaths = String[]()
+        var volPaths = [String]()
         
         for url : AnyObject in volUrls {
             if (url is NSURL) {
@@ -99,7 +99,7 @@ class LMVolume
         task.launchPath = "/usr/sbin/diskutil"
         task.arguments = [ "info", "-plist", path ]
         
-        var outputPipe = NSPipe.pipe()
+        var outputPipe = NSPipe()
         
         task.standardOutput = outputPipe
         
@@ -125,7 +125,7 @@ class LMVolume
         task.launchPath = "/usr/sbin/bless"
         task.arguments = [ "--info", path ]
         
-        var outputPipe = NSPipe.pipe()
+        var outputPipe = NSPipe()
         
         task.standardOutput = outputPipe
         
@@ -139,7 +139,7 @@ class LMVolume
         while (true) {
             data = fileHandle.availableData
             
-            if (!data || data!.length <= 0) {
+            if (data == nil || data!.length <= 0) {
                 break
             }
             
@@ -173,7 +173,7 @@ class LMVolume
         task.launchPath = "/usr/sbin/bless"
         task.arguments = [ "-getBoot" ]
         
-        var outputPipe = NSPipe.pipe()
+        var outputPipe = NSPipe()
         
         task.standardOutput = outputPipe
         
@@ -187,7 +187,7 @@ class LMVolume
         while (true) {
             data = fileHandle.availableData
             
-            if (!data || data!.length <= 0) {
+            if (data == nil || data!.length <= 0) {
                 break
             }
             

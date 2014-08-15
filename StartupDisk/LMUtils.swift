@@ -40,12 +40,15 @@ extension NSDictionary
 {
     class func dictionaryWithContentsOfData(data: NSData) -> NSDictionary?
     {
+        let immutability: CFOptionFlags = 0
+        
         var plist: CFPropertyListRef = CFPropertyListCreateFromXMLData(
             kCFAllocatorDefault, data,
-            0, // kCFPropertyListImmutable
+            immutability, // kCFPropertyListImmutable
             nil
-        )
+        ).takeUnretainedValue()
         
         return plist as? NSDictionary
     }
 }
+

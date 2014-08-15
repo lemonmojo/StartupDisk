@@ -9,12 +9,12 @@
 import Cocoa
 
 class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
-    @IBOutlet var statusMenu: NSMenu
+    @IBOutlet var statusMenu: NSMenu!
     var statusItem: NSStatusItem
     
-    init()
+    override init()
     {
-        self.statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(CGFloat(NSSquareStatusItemLength))
+        self.statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(CGFloat(-2.0))
     }
     
     override func awakeFromNib()
@@ -113,6 +113,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     
     func statusMenuItemQuit_Action(sender: NSMenuItem)
     {
-        NSApp.terminate(self)
+        NSApplication.sharedApplication().terminate(self)
+//        NSApp.terminate(self)
     }
 }
