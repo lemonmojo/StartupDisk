@@ -27,7 +27,7 @@ class LMVolume
         
         var volInfoDict = LMVolume.getVolumeInfoForPath(path)
         
-        if (volInfoDict) {
+        if (volInfoDict != nil) {
             name = volInfoDict!.objectForKey("VolumeName") as String
             devicePath = volInfoDict!.objectForKey("DeviceNode") as String
             bootable = volInfoDict!.objectForKey("Bootable") as Bool
@@ -99,7 +99,7 @@ class LMVolume
         task.launchPath = "/usr/sbin/diskutil"
         task.arguments = [ "info", "-plist", path ]
         
-        var outputPipe = NSPipe.pipe()
+        var outputPipe = NSPipe()
         
         task.standardOutput = outputPipe
         
@@ -125,7 +125,7 @@ class LMVolume
         task.launchPath = "/usr/sbin/bless"
         task.arguments = [ "--info", path ]
         
-        var outputPipe = NSPipe.pipe()
+        var outputPipe = NSPipe()
         
         task.standardOutput = outputPipe
         
@@ -139,7 +139,7 @@ class LMVolume
         while (true) {
             data = fileHandle.availableData
             
-            if (!data || data!.length <= 0) {
+            if (data == nil || data!.length <= 0) {
                 break
             }
             
@@ -173,7 +173,7 @@ class LMVolume
         task.launchPath = "/usr/sbin/bless"
         task.arguments = [ "-getBoot" ]
         
-        var outputPipe = NSPipe.pipe()
+        var outputPipe = NSPipe()
         
         task.standardOutput = outputPipe
         
@@ -187,7 +187,7 @@ class LMVolume
         while (true) {
             data = fileHandle.availableData
             
-            if (!data || data!.length <= 0) {
+            if (data == nil || data!.length <= 0) {
                 break
             }
             
