@@ -9,12 +9,13 @@
 import Cocoa
 
 class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
-    @IBOutlet var statusMenu: NSMenu
+    @IBOutlet var statusMenu: NSMenu!
     var statusItem: NSStatusItem
     
-    init()
+    override init()
     {
-        self.statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(CGFloat(NSSquareStatusItemLength))
+        let lengthSquare: CGFloat = -2 // TODO: Workaround for Xcode 6 Beta, should actually be: NSSquareStatusItemLength (see http://stackoverflow.com/questions/24024723/swift-using-nsstatusbar-statusitemwithlength-and-nsvariablestatusitemlength)
+        self.statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(lengthSquare)
     }
     
     override func awakeFromNib()
@@ -56,7 +57,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             
             var icon = NSWorkspace.sharedWorkspace().iconForFile(vol.path)
             
-            if (icon) {
+            if (icon != nil) {
                 icon.size = NSSize(width: 16, height: 16)
             }
             
@@ -107,12 +108,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     
     func statusMenuItemAbout_Action(sender: NSMenuItem)
     {
-        NSApp.orderFrontStandardAboutPanel(self)
-        NSApp.activateIgnoringOtherApps(true)
+        NSApplication.sharedApplication().orderFrontStandardAboutPanel(self)
+        NSApplication.sharedApplication().activateIgnoringOtherApps(true)
     }
     
     func statusMenuItemQuit_Action(sender: NSMenuItem)
     {
-        NSApp.terminate(self)
+        NSApplication.sharedApplication().terminate(self)
     }
 }
