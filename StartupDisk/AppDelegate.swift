@@ -34,8 +34,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         self.statusItem.title = nil
         
         var icon = NSImage(named: "Icon")
-        icon.size = NSSize(width: 16, height: 16)
-        icon.setTemplate(true)
+        icon?.size = NSSize(width: 16, height: 16)
+        icon?.setTemplate(true)
         
         self.statusItem.image = icon
     }
@@ -55,10 +55,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             var item = NSMenuItem(title: vol.name, action: "statusMenuItemVolume_Action:", keyEquivalent: "")
             item.representedObject = vol
             
-            var icon = NSWorkspace.sharedWorkspace().iconForFile(vol.path)
+            var icon : NSImage? = NSWorkspace.sharedWorkspace().iconForFile(vol.path)
             
             if (icon != nil) {
-                icon.size = NSSize(width: 16, height: 16)
+                icon?.size = NSSize(width: 16, height: 16)
             }
             
             item.image = icon
@@ -103,7 +103,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     
     func statusMenuItemSystemPreferences_Action(sender: NSMenuItem)
     {
-        NSWorkspace.sharedWorkspace().openURL(NSURL(fileURLWithPath: "/System/Library/PreferencePanes/StartupDisk.prefPane"))
+        NSWorkspace.sharedWorkspace().openURL(NSURL(fileURLWithPath: "/System/Library/PreferencePanes/StartupDisk.prefPane")!)
     }
     
     func statusMenuItemAbout_Action(sender: NSMenuItem)

@@ -79,13 +79,13 @@ class LMVolume
     
     class func mountedLocalVolumePaths() -> [String]
     {
-        var volUrls = NSFileManager.defaultManager().mountedVolumeURLsIncludingResourceValuesForKeys(nil, options: NSVolumeEnumerationOptions.fromRaw(0)!)
+        var volUrls = NSFileManager.defaultManager().mountedVolumeURLsIncludingResourceValuesForKeys(nil, options: NSVolumeEnumerationOptions(rawValue: 0))
         var volPaths = [String]()
         
-        for url : AnyObject in volUrls {
+        for url : AnyObject in volUrls! {
             if (url is NSURL) {
                 var path = (url as NSURL).path
-                volPaths.append(path)
+                volPaths.append(path!)
             }
         }
         
@@ -105,11 +105,11 @@ class LMVolume
         
         task.launch()
         
-        var data = outputPipe.fileHandleForReading.readDataToEndOfFile()
+        var data : NSData? = outputPipe.fileHandleForReading.readDataToEndOfFile()
         
         task.waitUntilExit()
         
-        if (!data) {
+        if (data == nil) {
             return nil
         }
         
@@ -143,8 +143,8 @@ class LMVolume
                 break
             }
             
-            var tempString = NSString(data: data, encoding: NSUTF8StringEncoding)
-            dataStr.appendString(tempString)
+            var tempString = NSString(data: data!, encoding: NSUTF8StringEncoding)
+            dataStr.appendString(tempString!)
         }
         
         if (dataStr.length <= 0) {
@@ -191,8 +191,8 @@ class LMVolume
                 break
             }
             
-            var tempString = NSString(data: data, encoding: NSUTF8StringEncoding)
-            dataStr.appendString(tempString)
+            var tempString = NSString(data: data!, encoding: NSUTF8StringEncoding)
+            dataStr.appendString(tempString!)
         }
         
         if (dataStr.length <= 0) {

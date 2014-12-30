@@ -16,7 +16,7 @@ class LMUtils
         var scriptSource = NSString(format: "tell application \"Finder\" to %@", scriptAction)
         var appleScript = NSAppleScript(source: scriptSource)
         
-        appleScript.executeAndReturnError(nil)
+        appleScript?.executeAndReturnError(nil)
     }
 }
 
